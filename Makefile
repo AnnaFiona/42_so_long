@@ -6,13 +6,13 @@
 #    By: aplank <aplank@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:25:32 by aplank            #+#    #+#              #
-#    Updated: 2022/12/17 15:43:21 by aplank           ###   ########.fr        #
+#    Updated: 2022/12/19 18:14:41 by aplank           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-MY_SOURCES = main.c map.c movement_handling.c textures.c window_handling.c
+MY_SOURCES = main.c map.c movement.c textures.c window_handling.c
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 

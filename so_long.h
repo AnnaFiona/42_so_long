@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:31:32 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/19 16:56:28 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/19 20:20:09 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ typedef struct s_data
 	void	*wall;
 	
 	int		clover_count;
+	int		move_count;
 	int		bat_look;
 	char	**map;
+	int		win_x;
+	int		win_y;
 	int		p_x;
 	int		p_y;
 	int		e_x;
@@ -45,37 +48,15 @@ typedef struct s_data
 	int		y;
 } t_data;
 
-/* typedef struct s_textures
-{
-	void	*exit_right;
-	void	*exit_left;
-	void	*bat_right;
-	void	*bat_left;
-	void	*clover;
-	void	*floor;
-	void	*wall;
-} t_textures;
-
-typedef struct s_map
-{
-	char	**map;
-	int		p_x;
-	int		p_y;
-	int		x;
-	int		y;
-} t_map; */
-
 
 //map.c
 int 	get_map(t_data *data, char *map_name);
-int		get_p_position(t_data *data);
-int		get_e_position(t_data *data);
-int		get_positions(t_data *data);
+void	get_positions(t_data *data);
 void	map_size(t_data *data);
 int		put_map(t_data *data);
 int		free_map(t_data *data);
 
-//movement_handling.c
+//movement.c
 int		get_movement(int keysym, t_data *data);
 int		move_right(t_data *data);
 int		move_down(t_data *data);

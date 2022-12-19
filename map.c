@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:59:53 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/19 16:58:26 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/19 21:20:06 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	get_map(t_data *data, char *map_name)
 	int		check;
 	char	*buf;
 
+	data->clover_count = 0;
+	data->move_count = 0;
 	buf = malloc(1000 * sizeof(char));
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
@@ -33,10 +35,12 @@ int	get_map(t_data *data, char *map_name)
 	data->map = ft_split(buf, '\n');
 	free(buf);
 	close(fd);
-	data->y = 0;
-	data->x = ft_strlen(data->map[0]);
-	while (data->map[data->y])
-		data->y++;
+	
+	data->win_y = 0;
+	data->win_x = ft_strlen(data->map[0]);
+	while (data->map[data->win_y])
+		data->win_y++;
+
 	get_positions(data);
 	if (data->p_x <= data->e_x)
 		data->bat_look = 0;
@@ -45,7 +49,7 @@ int	get_map(t_data *data, char *map_name)
 	return (0);
 }
 
-int	get_positions(t_data *data)
+void	get_positions(t_data *data)
 {
 	int	x;
 	int	y;
@@ -72,13 +76,15 @@ int	get_positions(t_data *data)
 		}
 		y++;
 	}
-	return (1);
 }
 
 int	put_map(t_data *data)
 {
+	char	*str_move_cnt;
+	
 	if (data->win_ptr == NULL)
 		return (0);
+	str_move_cnt = ft_itoa(data->move_count);
 	data->y = 0;
 	while (data->map[data->y])
 	{
@@ -86,10 +92,12 @@ int	put_map(t_data *data)
 		while (data->map[data->y][data->x])
 		{
 			put_image(data);
+			mlx_string_put(data->mlx_ptr, data->win_ptr, data->win_x * 20, 22, 0xe8faf7, str_move_cnt);
 			data->x++;
 		}
 		data->y++;
 	}
+	free(str_move_cnt);
 	return (0);
 }
 

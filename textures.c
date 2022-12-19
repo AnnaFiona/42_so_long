@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:39:36 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/19 14:46:49 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/19 21:15:18 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,3 @@ void	destroy_textures(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->floor);
 	mlx_destroy_image(data->mlx_ptr, data->wall);
 }
-
-/* 	int			x;
-	int			y;
-
-	y = 0;
-	//mlx_put_data_to_data(data->mlx_ptr, data->win_ptr, data->bat, 0, 0);
-	while(y <= 360)
-	{
-		x = 0;
-		while (x <= 760)
-		{
-			mlx_put_data_to_data(data->mlx_ptr, data->win_ptr, data->exit_left, x, y);
-			x += 40;
-		}
-		y += 40;
-	}
-	return (0); */

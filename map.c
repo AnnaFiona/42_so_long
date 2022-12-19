@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:59:53 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/17 16:38:59 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/19 16:58:26 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,94 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-int	get_map(t_map *plan, char *map_name)
+int	get_map(t_data *data, char *map_name)
 {
 	int		fd;
 	int		check;
-	char	buf[1000];
+	char	*buf;
 
+	buf = malloc(1000 * sizeof(char));
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		return (1);
 	check = read(fd, buf, 1000);
 	if (check <= 0 || check == 1000)
 		return (1);
-	plan->map = ft_split(buf, '\n');
-	plan->y = 0;
-	plan->x = ft_strlen(plan->map[0]);
-	while (plan->map[plan->y])
-		plan->y++;
-	get_p_position(plan);
+	buf[check] = '\0';
+	buf[check + 1] = '\0';
+	data->map = ft_split(buf, '\n');
+	free(buf);
+	close(fd);
+	data->y = 0;
+	data->x = ft_strlen(data->map[0]);
+	while (data->map[data->y])
+		data->y++;
+	get_positions(data);
+	if (data->p_x <= data->e_x)
+		data->bat_look = 0;
+	else
+		data->bat_look = 1;
 	return (0);
 }
 
-int	get_p_position(t_map *plan)
+int	get_positions(t_data *data)
 {
-	plan->p_y = 0;
-	while (plan->map[plan->p_y])
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map[y])
 	{
-		plan->p_x = 0;
-		while (plan->map[plan->p_y][plan->p_x] != '\0')
+		x = 0;
+		while (data->map[y][x] != '\0')
 		{
-			if (plan->map[plan->p_y][plan->p_x] == 'P')
+			if (data->map[y][x] == 'E')
 			{
-				printf("get_p_position p_x: %d		p_y: %d\n", plan->p_x, plan->p_y);
-				return (0);
+				data->e_x = x;
+				data->e_y = y;
 			}
-			plan->p_x++;
+			if (data->map[y][x] == 'P')
+			{
+				data->p_x = x;
+				data->p_y = y;
+			}
+			if (data->map[y][x] == 'C')
+				data->clover_count++;
+			x++;
 		}
-		plan->p_y++;
+		y++;
 	}
 	return (1);
 }
 
-int	put_map(t_data *window, t_textures *image, t_map *plan)
+int	put_map(t_data *data)
 {
-	plan->y = 0;
-	while (plan->map[plan->y])
+	if (data->win_ptr == NULL)
+		return (0);
+	data->y = 0;
+	while (data->map[data->y])
 	{
-		plan->x = 0;
-		while (plan->map[plan->y][plan->x])
+		data->x = 0;
+		while (data->map[data->y][data->x])
 		{
-			put_image(window, image, plan);
-			plan->x++;
+			put_image(data);
+			data->x++;
 		}
-		plan->y++;
+		data->y++;
 	}
 	return (0);
 }
 
-int	free_map(t_map *plan)
+int	free_map(t_data *data)
 {
 	int	y;
 
 	y = 0;
-	while (plan->map[y])
+	while (data->map[y])
 	{
-		free(plan->map[y]);
+		free(data->map[y]);
 		y++;
 	}
-	free(plan->map);
+	free(data->map);
 	return (0);
 }

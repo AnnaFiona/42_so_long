@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:31:32 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/19 20:20:09 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/22 18:47:39 by ip               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ typedef struct s_data
 	int		clover_count;
 	int		move_count;
 	int		bat_look;
+	char	*map_name;
 	char	**map;
+	char	*buf;
 	int		win_x;
 	int		win_y;
 	int		p_x;
@@ -48,11 +50,35 @@ typedef struct s_data
 	int		y;
 } t_data;
 
+typedef struct s_check
+{
+	int		exit_reach;
+	int		clover_cnt;
+	int		player_cnt;
+	int		exit_cnt;
+	char	**map;
+	int		p_x;
+	int		p_y;
+
+} t_check;
+
+
+//check.c
+int		check(t_data *data);
+void	check_count(t_check *check);
+int		put_error(t_data *data, t_check *check);
+void	free_check(t_check *check);
+
+//map_check.c
+void	check_map(t_data *data, t_check *check);
+int		field_check(t_check *check, int x, int y);
+int		check_size(t_check *check);
+int		check_border(t_data *data, t_check *check);
 
 //map.c
-int 	get_map(t_data *data, char *map_name);
+int		read_map(t_data *data);
+int 	get_map(t_data *data);
 void	get_positions(t_data *data);
-void	map_size(t_data *data);
 int		put_map(t_data *data);
 int		free_map(t_data *data);
 

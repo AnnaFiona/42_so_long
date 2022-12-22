@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:59:53 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/19 21:20:06 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/22 19:54:31 by ip               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,34 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-int	get_map(t_data *data, char *map_name)
+int	get_map(t_data *data)
 {
 	int		fd;
 	int		check;
-	char	*buf;
 
 	data->clover_count = 0;
 	data->move_count = 0;
-	buf = malloc(1000 * sizeof(char));
-	fd = open(map_name, O_RDONLY);
+	data->p_x = 0;
+	data->p_y = 0;
+	data->e_x = 0;
+	data->e_y = 0;
+
+
+	data->buf = malloc(2000 * sizeof(char));
+	fd = open(data->map_name, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	check = read(fd, buf, 1000);
-	if (check <= 0 || check == 1000)
+	check = read(fd, data->buf, 2000);
+	if (check <= 0 || check == 2000)
+	{
+		if (check == 2000)
+			ft_printf("\n    ERROR: The map is too big\n\n");
+		free(data->buf);
 		return (1);
-	buf[check] = '\0';
-	buf[check + 1] = '\0';
-	data->map = ft_split(buf, '\n');
-	free(buf);
+	}
+	data->buf[check] = '\0';
+	data->buf[check + 1] = '\0';
+	data->map = ft_split(data->buf, '\n');
 	close(fd);
 	
 	data->win_y = 0;
@@ -60,15 +69,15 @@ void	get_positions(t_data *data)
 		x = 0;
 		while (data->map[y][x] != '\0')
 		{
-			if (data->map[y][x] == 'E')
-			{
-				data->e_x = x;
-				data->e_y = y;
-			}
 			if (data->map[y][x] == 'P')
 			{
 				data->p_x = x;
 				data->p_y = y;
+			}
+			if (data->map[y][x] == 'E')
+			{
+				data->e_x = x;
+				data->e_y = y;
 			}
 			if (data->map[y][x] == 'C')
 				data->clover_count++;
@@ -112,5 +121,6 @@ int	free_map(t_data *data)
 		y++;
 	}
 	free(data->map);
+	free(data->buf);
 	return (0);
 }

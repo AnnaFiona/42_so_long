@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aplank <aplank@student.42.fr>              +#+  +:+       +#+         #
+#    By: ip <ip@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:25:32 by aplank            #+#    #+#              #
-#    Updated: 2022/12/19 18:14:41 by aplank           ###   ########.fr        #
+#    Updated: 2022/12/22 12:38:25 by ip               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-MY_SOURCES = main.c map.c movement.c textures.c window_handling.c
+MY_SOURCES = check.c main.c map_check.c map.c movement.c textures.c window_handling.c
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
@@ -25,7 +25,8 @@ all: $(NAME)
 
 $(NAME): $(MY_OBJECTS)
 	$(MAKE) bonus -C libft
-	@$(CC) $(MY_OBJECTS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@$(CC) $(MY_OBJECTS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -o $(NAME)
+#	 -lz
 	@echo making mandatory .o files
 	@echo starting program
 #	@./so_long

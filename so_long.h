@@ -6,7 +6,7 @@
 /*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:31:32 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/22 18:47:39 by ip               ###   ########.fr       */
+/*   Updated: 2022/12/29 12:44:04 by ip               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,17 @@ typedef struct s_data
 
 	void	*exit_right;
 	void	*exit_left;
-	void	*bat_right;
-	void	*bat_left;
+	int		bat_animation_cnt;
+	void	*bat_1_right;
+	void	*bat_1_left;
+	void	*bat_2_right;
+	void	*bat_2_left;
+	void	*bat_3_right;
+	void	*bat_3_left;
+	void	*bat_4_right;
+	void	*bat_4_left;
+	void	*bat_5_right;
+	void	*bat_5_left;
 	void	*clover;
 	void	*floor;
 	void	*wall;
@@ -91,6 +100,8 @@ int		move_up(t_data *data);
 
 //textures.c
 int		get_textures(t_data *data);
+void	put_bat_right(t_data *data);
+void	put_bat_left(t_data *data);
 int		put_image(t_data *data);
 void	destroy_textures(t_data *data);
 

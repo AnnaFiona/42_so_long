@@ -6,7 +6,7 @@
 /*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:59:53 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/22 19:54:31 by ip               ###   ########.fr       */
+/*   Updated: 2022/12/29 12:49:47 by ip               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-int	get_map(t_data *data)
+int	read_map(t_data *data)
 {
 	int		fd;
 	int		check;
-
-	data->clover_count = 0;
-	data->move_count = 0;
-	data->p_x = 0;
-	data->p_y = 0;
-	data->e_x = 0;
-	data->e_y = 0;
-
 
 	data->buf = malloc(2000 * sizeof(char));
 	fd = open(data->map_name, O_RDONLY);
@@ -44,7 +36,21 @@ int	get_map(t_data *data)
 	data->buf[check + 1] = '\0';
 	data->map = ft_split(data->buf, '\n');
 	close(fd);
-	
+	return (0);
+}
+
+int	get_map(t_data *data)
+{
+	data->bat_animation_cnt = 0;
+	data->clover_count = 0;
+	data->move_count = 0;
+	data->p_x = 0;
+	data->p_y = 0;
+	data->e_x = 0;
+	data->e_y = 0;
+
+	if (read_map(data) == 1)
+		return (1);
 	data->win_y = 0;
 	data->win_x = ft_strlen(data->map[0]);
 	while (data->map[data->win_y])
@@ -100,6 +106,10 @@ int	put_map(t_data *data)
 		data->x = 0;
 		while (data->map[data->y][data->x])
 		{
+			if (data->bat_look == 0)
+				put_bat_right(data);
+			else
+				put_bat_left(data);
 			put_image(data);
 			mlx_string_put(data->mlx_ptr, data->win_ptr, data->win_x * 20, 22, 0xe8faf7, str_move_cnt);
 			data->x++;

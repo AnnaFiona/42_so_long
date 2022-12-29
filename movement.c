@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:31:48 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/19 20:39:50 by aplank           ###   ########.fr       */
+/*   Updated: 2022/12/29 13:03:34 by ip               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ int	move_right(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
 	data->map[data->p_y][++data->p_x] = 'P';
+	if (data->bat_look == 0)
+		put_bat_right(data);
+	else
+		put_bat_left(data);
 	return (0);
 }
 
@@ -67,7 +72,12 @@ int	move_down(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
 	data->map[++data->p_y][data->p_x] = 'P';
+	if (data->bat_look == 0)
+		put_bat_right(data);
+	else
+		put_bat_left(data);
 	return (0);
 }
 
@@ -90,7 +100,12 @@ int	move_left(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
 	data->map[data->p_y][--data->p_x] = 'P';
+	if (data->bat_look == 0)
+		put_bat_right(data);
+	else
+		put_bat_left(data);
 	return (0);
 }
 
@@ -112,6 +127,11 @@ int	move_up(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
 	data->map[--data->p_y][data->p_x] = 'P';
+	if (data->bat_look == 0)
+		put_bat_right(data);
+	else
+		put_bat_left(data);
 	return (0);
 }

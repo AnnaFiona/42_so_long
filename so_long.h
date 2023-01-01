@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:31:32 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/29 12:44:04 by ip               ###   ########.fr       */
+/*   Updated: 2023/01/01 18:24:08 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <stdlib.h>
-
+# include <fcntl.h>
 
 typedef struct s_data
 {
@@ -42,7 +42,7 @@ typedef struct s_data
 	void	*clover;
 	void	*floor;
 	void	*wall;
-	
+
 	int		clover_count;
 	int		move_count;
 	int		bat_look;
@@ -57,7 +57,7 @@ typedef struct s_data
 	int		e_y;
 	int		x;
 	int		y;
-} t_data;
+}	t_data;
 
 typedef struct s_check
 {
@@ -69,8 +69,7 @@ typedef struct s_check
 	int		p_x;
 	int		p_y;
 
-} t_check;
-
+}	t_check;
 
 //check.c
 int		check(t_data *data);
@@ -86,7 +85,7 @@ int		check_border(t_data *data, t_check *check);
 
 //map.c
 int		read_map(t_data *data);
-int 	get_map(t_data *data);
+int		get_map(t_data *data);
 void	get_positions(t_data *data);
 int		put_map(t_data *data);
 int		free_map(t_data *data);
@@ -98,10 +97,13 @@ int		move_down(t_data *data);
 int		move_left(t_data *data);
 int		move_up(t_data *data);
 
-//textures.c
-int		get_textures(t_data *data);
+//textures_bat.c
+void	get_textures_bat(t_data *data);
 void	put_bat_right(t_data *data);
 void	put_bat_left(t_data *data);
+
+//textures.c
+int		get_textures(t_data *data);
 int		put_image(t_data *data);
 void	destroy_textures(t_data *data);
 

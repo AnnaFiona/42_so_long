@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 14:31:48 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/29 13:03:34 by ip               ###   ########.fr       */
+/*   Updated: 2023/01/01 18:10:57 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	get_movement(int keysym, t_data *data)
 {
 	data->move_count++;
-	if(keysym == XK_d)
+	if (keysym == XK_d)
 		move_right(data);
-	else if(keysym == XK_s)
+	else if (keysym == XK_s)
 		move_down(data);
-	else if(keysym == XK_a)
+	else if (keysym == XK_a)
 		move_left(data);
-	else if(keysym == XK_w)
+	else if (keysym == XK_w)
 		move_up(data);
 	return (0);
 }
@@ -45,7 +45,8 @@ int	move_right(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x
+		* 40, data->p_y * 40);
 	data->map[data->p_y][++data->p_x] = 'P';
 	if (data->bat_look == 0)
 		put_bat_right(data);
@@ -72,7 +73,8 @@ int	move_down(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x
+		* 40, data->p_y * 40);
 	data->map[++data->p_y][data->p_x] = 'P';
 	if (data->bat_look == 0)
 		put_bat_right(data);
@@ -100,7 +102,8 @@ int	move_left(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x
+		* 40, data->p_y * 40);
 	data->map[data->p_y][--data->p_x] = 'P';
 	if (data->bat_look == 0)
 		put_bat_right(data);
@@ -127,7 +130,8 @@ int	move_up(t_data *data)
 		return (1);
 	}
 	data->map[data->p_y][data->p_x] = '0';
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x * 40, data->p_y * 40);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, data->p_x
+		* 40, data->p_y * 40);
 	data->map[--data->p_y][data->p_x] = 'P';
 	if (data->bat_look == 0)
 		put_bat_right(data);

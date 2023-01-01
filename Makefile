@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ip <ip@student.42.fr>                      +#+  +:+       +#+         #
+#    By: aplank <aplank@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:25:32 by aplank            #+#    #+#              #
-#    Updated: 2022/12/22 12:38:25 by ip               ###   ########.fr        #
+#    Updated: 2023/01/01 18:23:07 by aplank           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-MY_SOURCES = check.c main.c map_check.c map.c movement.c textures.c window_handling.c
+MY_SOURCES = check.c main.c map_check.c map.c movement.c textures_bat.c textures.c window_handling.c
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
@@ -25,13 +25,13 @@ all: $(NAME)
 
 $(NAME): $(MY_OBJECTS)
 	$(MAKE) bonus -C libft
-	@$(CC) $(MY_OBJECTS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -o $(NAME)
-#	 -lz
+	@make -C mlx_linux
+	@$(CC) $(MY_OBJECTS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lz -lm -o $(NAME)
 	@echo making mandatory .o files
 	@echo starting program
-#	@./so_long
+	@./so_long test_map
 	@echo
-#	@make fclean
+	@make fclean
 	@echo program end
 
 $(MY_OBJECTS): 
@@ -43,7 +43,8 @@ clean:
 
 fclean: clean
 	@rm -f so_long
-	make fclean -C libft
+	@make fclean -C libft
+	@make clean -C mlx_linux
 	@echo
 	@echo ...and the so_long too
 

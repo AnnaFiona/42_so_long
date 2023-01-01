@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ip <ip@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:50:11 by aplank            #+#    #+#             */
-/*   Updated: 2022/12/22 18:49:27 by ip               ###   ########.fr       */
+/*   Updated: 2023/01/01 18:08:14 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	checking_input(t_data *data, int argc, char **argv)
 {
-
 	if (argc != 2)
 	{
 		ft_printf("\n    ERROR: There are %d arguments. \
@@ -25,7 +24,7 @@ int	checking_input(t_data *data, int argc, char **argv)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	data;
 
@@ -33,11 +32,6 @@ int main(int argc, char **argv)
 		return (1);
 	if (get_map(&data))
 		return (1);
-	if (check(&data) == 1)
-	{
-		free_map(&data);
-		return (1);
-	}
 	if (make_window(&data) == 1)
 	{
 		free_map(&data);

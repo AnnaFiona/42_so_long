@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:31:32 by aplank            #+#    #+#             */
-/*   Updated: 2023/01/01 18:24:08 by aplank           ###   ########.fr       */
+/*   Updated: 2023/01/02 19:50:30 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	free_check(t_check *check);
 //map_check.c
 void	check_map(t_data *data, t_check *check);
 int		field_check(t_check *check, int x, int y);
-int		check_size(t_check *check);
+int		check_size_and_characters(t_check *check);
+int		check_characters(t_check *check, int y);
 int		check_border(t_data *data, t_check *check);
 
 //map.c

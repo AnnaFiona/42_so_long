@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:50:11 by aplank            #+#    #+#             */
-/*   Updated: 2023/01/01 18:08:14 by aplank           ###   ########.fr       */
+/*   Updated: 2023/01/02 20:20:11 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (checking_input(&data, argc, argv) == 1)
-		return (1);
+		return (0);
 	if (get_map(&data))
-		return (1);
+		return (0);
 	if (make_window(&data) == 1)
 	{
 		free_map(&data);
-		return (1);
+		return (0);
 	}
 	get_textures(&data);
 	mlx_loop_hook(data.mlx_ptr, &put_map, &data);

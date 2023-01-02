@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:29:30 by aplank            #+#    #+#             */
-/*   Updated: 2023/01/01 17:53:15 by aplank           ###   ########.fr       */
+/*   Updated: 2023/01/02 20:09:12 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int	check(t_data *data)
 
 	check.map = ft_split(data->buf, '\n');
 	check.clover_cnt = data->clover_count;
-	if (check_size(&check) != 0)
+	if (check_size_and_characters(&check) != 0)
 	{
-		ft_printf("\n    ERROR: The map is not rectangular\n\n");
 		free_check(&check);
 		return (1);
 	}

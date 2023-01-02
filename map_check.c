@@ -6,7 +6,7 @@
 /*   By: aplank <aplank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:06:13 by aplank            #+#    #+#             */
-/*   Updated: 2023/01/01 18:09:39 by aplank           ###   ########.fr       */
+/*   Updated: 2023/01/02 20:28:20 by aplank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	field_check(t_check *check, int x, int y)
 	return (cnt);
 }
 
-int	check_size(t_check *check)
+int	check_size_and_characters(t_check *check)
 {
 	size_t	width;
 	int		y;
@@ -68,8 +68,35 @@ int	check_size(t_check *check)
 	while (check->map[y])
 	{
 		if (ft_strlen(check->map[y]) != width)
+		{
+			ft_printf("\n    ERROR: The map is not rectangular\n\n");
+			return (1);
+		}
+		if (check_characters(check, y))
 			return (1);
 		y++;
+	}
+	return (0);
+}
+
+int	check_characters(t_check *check, int y)
+{
+	int	x;
+
+	x = 0;
+	while (check->map[y][x])
+	{
+		if (!(check->map[y][x] == '0'
+			|| check->map[y][x] == '1'
+			|| check->map[y][x] == 'C'
+			|| check->map[y][x] == 'P'
+			|| check->map[y][x] == 'E'))
+		{
+			ft_printf("\n    ERROR: There is a %c in your map\n\n",
+				check->map[y][x]);
+			return (1);
+		}
+		x++;
 	}
 	return (0);
 }

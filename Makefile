@@ -6,7 +6,7 @@
 #    By: aplank <aplank@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:25:32 by aplank            #+#    #+#              #
-#    Updated: 2023/01/01 18:23:07 by aplank           ###   ########.fr        #
+#    Updated: 2023/01/02 20:15:30 by aplank           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ $(NAME): $(MY_OBJECTS)
 	@$(CC) $(MY_OBJECTS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lz -lm -o $(NAME)
 	@echo making mandatory .o files
 	@echo starting program
-	@./so_long test_map
+	@valgrind ./so_long level_3.ber
 	@echo
 	@make fclean
 	@echo program end
